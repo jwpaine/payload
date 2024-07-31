@@ -15,19 +15,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Echo Start
+        run: echo "Start Build and Push Job"
+
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Echo Checkout Success
+        run: echo "Checkout completed successfully"
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '18'
 
+      - name: Echo Node.js Setup Success
+        run: echo "Node.js setup completed successfully"
+
       - name: Install dependencies
         run: npm install
 
+      - name: Echo Dependencies Installed
+        run: echo "Dependencies installed successfully"
+
       - name: Build project
         run: npm run build
+
+      - name: Echo Build Success
+        run: echo "Build completed successfully"
+
+      - name: Echo Gitea Username
+        run: echo "Logging in with username: ${{ secrets.GITEAUSER }}"
 
       - name: Log in to Gitea Docker Registry
         id: login
@@ -45,6 +63,10 @@ jobs:
           echo "Registry: git.dreamfriday.com"
           exit 1
 
+      - name: Echo Login Success
+        if: steps.login.outcome == 'success'
+        run: echo "Login to Gitea Docker Registry completed successfully"
+
       - name: Build and push container image to registry
         uses: docker/build-push-action@v6
         with:
@@ -52,3 +74,6 @@ jobs:
           push: true
           tags: git.dreamfriday.com/${{ secrets.GITEAUSER }}/payload:latest
           file: ./Dockerfile
+
+      - name: Echo Build and Push Success
+        run: echo "Build and push completed successfully"
