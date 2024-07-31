@@ -13,16 +13,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install Curl, Node.js, and Yarn
+    - name: Install Curl, Node.js, Yarn, and Docker
       run: |
-        echo "Installing curl, Node.js, and Yarn..."
+        echo "Installing curl, Node.js, Yarn, and Docker..."
         apk update
         apk add curl
         apk add nodejs npm
         npm install -g yarn
+        apk add --no-cache \
+          ca-certificates \
+          curl \
+          gnupg \
+          lvm2 \
+          device-mapper-persistent-data
+        curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz | tar -xz --strip 1 -C /usr/local/bin docker/docker
+        dockerd &
         node -v
         npm -v
         yarn -v
+        docker -v
 
     - name: Checkout code
       uses: actions/checkout@v2
@@ -56,3 +65,7 @@ jobs:
       run: |
         docker build -t git.dreamfriday.com/${{ secrets.GITEAUSER }}/payload:latest .
         docker push git.dreamfriday.com/${{ secrets.GITEAUSER }}/payload:latest
+
+    - name: Verify Docker Daemon Connection
+      run: |
+        docker info
