@@ -25,8 +25,8 @@ jobs:
           docker \
           openrc
         rc-update add docker boot
+        service docker stop || true
         service docker start
-        # Wait for Docker to be fully started
         sleep 10
         while (! docker stats --no-stream ); do
           echo "Waiting for Docker to start..."
