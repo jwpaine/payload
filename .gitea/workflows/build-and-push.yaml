@@ -39,6 +39,8 @@ jobs:
             rc-update add docker boot
             service docker start || echo "Docker already started"
           fi
+          usermod -aG docker $(whoami) || echo "Adding user to docker group"
+          newgrp docker
           docker version || echo "Docker not installed properly"
 
       - name: Check Docker status
