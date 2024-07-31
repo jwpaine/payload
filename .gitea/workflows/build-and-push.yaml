@@ -13,30 +13,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install Curl and Node.js
+    - name: Install Curl, Node.js, and Yarn
       run: |
-        echo "Installing curl and Node.js..."
+        echo "Installing curl, Node.js, and Yarn..."
         apk update
         apk add curl
         apk add nodejs npm
+        npm install -g yarn
         node -v
         npm -v
+        yarn -v
 
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Verify Node.js Installation
+    - name: Verify Node.js and Yarn Installation
       run: |
         node -v
         npm -v
+        yarn -v
         which node
         which npm
+        which yarn
 
     - name: Install dependencies
-      run: npm install
+      run: yarn install
 
     - name: Build project
-      run: npm run build
+      run: yarn build
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
