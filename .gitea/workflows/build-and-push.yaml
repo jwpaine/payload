@@ -32,7 +32,7 @@ jobs:
       - name: Ensure Docker is installed and running
         run: |
           apt-get update && apt-get install -y docker.io
-          service docker start || echo "Docker already started"
+          service docker start || systemctl start docker || /etc/init.d/docker start
           usermod -aG docker $USER || echo "Adding user to docker group"
 
       - name: Check Docker status
