@@ -17,17 +17,15 @@ jobs:
       run: |
         echo "Installing curl, Node.js, Yarn, and Docker..."
         apk update
-        apk add curl
-        apk add nodejs npm
-        npm install -g yarn
         apk add --no-cache \
-          ca-certificates \
           curl \
-          gnupg \
-          lvm2 \
-          device-mapper-persistent-data
-        curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz | tar -xz --strip 1 -C /usr/local/bin docker/docker
-        dockerd &
+          nodejs \
+          npm \
+          yarn \
+          docker \
+          openrc
+        rc-update add docker boot
+        service docker start
         node -v
         npm -v
         yarn -v
