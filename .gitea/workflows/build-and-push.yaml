@@ -29,9 +29,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Echo Gitea Username
-        run: echo "Logging in with username: ${{ secrets.GITEAUSER }}"
-
       - name: Log in to Gitea Docker Registry
         id: login
         uses: docker/login-action@v3
