@@ -15,6 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check Docker status
+        run: |
+          sudo service docker status
+          docker version
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -30,16 +35,28 @@ jobs:
         run: npm run build
 
       - name: Log in to Gitea Docker Registry
+        id: login
         uses: docker/login-action@v3
         with:
           registry: git.dreamfriday.com
           username: ${{ secrets.GITEAUSER }}
           password: ${{ secrets.GITEAPASSWORD }}
 
-      - name: Build and push container image to registry
+      - name: Check login status
+        if: steps.login.outcome != 'success'
         run: |
-          docker build -t git.dreamfriday.com/${{ secrets.GITEAUSER }}/payload:latest .
-          docker push git.dreamfriday.com/${{ secrets.GITEAUSER }}/payload:latest
+          echo "Login to Gitea Docker Registry failed"
+          echo "Username: ${{ secrets.GITEAUSER }}"
+          echo "Registry: git.dreamfriday.com"
+          exit 1
+
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: git.dreamfriday.com/${{ secrets.GITEAUSER }}/payload:latest
+          file: ./Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
