@@ -1,4 +1,4 @@
-name: Build and Deploy Payload App
+name: Build and Push Docker Image
 
 on:
   push:
@@ -11,15 +11,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Docker status
-        run: |
-          service docker status || docker info || echo "Docker not running"
-          docker version || echo "Docker not installed"
-
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -33,6 +28,17 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Ensure Docker is installed and running
+        run: |
+          apt-get update && apt-get install -y docker.io
+          service docker start || echo "Docker already started"
+          usermod -aG docker $USER || echo "Adding user to docker group"
+
+      - name: Check Docker status
+        run: |
+          docker info
+          docker version
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -62,20 +68,3 @@ jobs:
           push: true
           tags: git.dreamfriday.com/${{ secrets.GITEAUSER }}/payload:latest
           file: ./Dockerfile
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Log in to Docker Registry
-        uses: docker/login-action@v3
-        with:
-          registry: git.dreamfriday.com
-          username: ${{ secrets.GITEAUSER }}
-          password: ${{ secrets.GITEAPASSWORD }}
-
-      - name: Deploy to container
-        run: |
-          docker pull git.dreamfriday.com/${{ secrets.GITEAUSER }}/payload:latest
-          # Add your deployment command here, e.g., docker run or kubectl apply
