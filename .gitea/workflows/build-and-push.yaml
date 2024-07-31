@@ -10,28 +10,16 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: docker:stable-dind
 
     steps:
-    - name: Install Curl, Node.js, Yarn, and Docker
+    - name: Set up Docker-in-Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Install Curl, Node.js, and Yarn
       run: |
-        echo "Installing curl, Node.js, Yarn, and Docker..."
-        apk update
-        apk add --no-cache \
-          curl \
-          nodejs \
-          npm \
-          yarn \
-          docker \
-          openrc
-        rc-update add docker boot
-        service docker stop || true
-        service docker start
-        sleep 10
-        while (! docker stats --no-stream ); do
-          echo "Waiting for Docker to start..."
-          sleep 1
-        done
+        apt-get update
+        apt-get install -y curl nodejs npm yarn
         node -v
         npm -v
         yarn -v
@@ -54,9 +42,6 @@ jobs:
 
     - name: Build project
       run: yarn build
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
 
     - name: Log in to Gitea Docker Registry
       uses: docker/login-action@v2
