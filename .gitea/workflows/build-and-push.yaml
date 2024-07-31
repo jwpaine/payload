@@ -69,7 +69,7 @@ jobs:
 
       - name: Build and push container image to registry
         uses: docker/build-push-action@v6
-        with:
+        with: 
           context: .
           push: true
           tags: git.dreamfriday.com/${{ secrets.GITEAUSER }}/payload:latest
