@@ -36,6 +36,9 @@ jobs:
           registry: git.dreamfriday.com
           username: ${{ secrets.GITEAUSER }}
           password: ${{ secrets.GITEAPASSWORD }}
+        run: |
+          echo "Logging in with username: ${{ secrets.GITEAUSER }}"
+          docker login git.dreamfriday.com -u ${{ secrets.GITEAUSER }} -p ${{ secrets.GITEAPASSWORD }}
 
       - name: Check login status
         if: steps.login.outcome != 'success'
