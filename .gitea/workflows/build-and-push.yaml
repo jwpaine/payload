@@ -18,15 +18,18 @@ jobs:
 
     - name: Check Node.js Installation
       run: |
+        node -v || echo "Node.js is not installed"
+        npm -v || echo "NPM is not installed"
+        which node || echo "Node.js is not in PATH"
+        which npm || echo "NPM is not in PATH"
+
+    - name: Install Node.js Manually
+      run: |
+        echo "Installing Node.js..."
+        curl -sL https://deb.nodesource.com/setup_18.x | bash -
+        apt-get install -y nodejs
         node -v
         npm -v
-        which node
-        which npm
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
 
     - name: Verify Node.js Installation
       run: |
