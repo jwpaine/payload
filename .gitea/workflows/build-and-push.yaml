@@ -13,16 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Check Node.js Installation
-      run: |
-        node -v || echo "Node.js is not installed"
-        npm -v || echo "NPM is not installed"
-        which node || echo "Node.js is not in PATH"
-        which npm || echo "NPM is not in PATH"
-
     - name: Install Node.js Manually
       run: |
         echo "Installing Node.js..."
@@ -30,6 +20,9 @@ jobs:
         apt-get install -y nodejs
         node -v
         npm -v
+
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Verify Node.js Installation
       run: |
