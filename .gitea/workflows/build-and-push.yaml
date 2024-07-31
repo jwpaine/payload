@@ -13,17 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install Curl
+    - name: Install Curl and Node.js
       run: |
-        echo "Installing curl..."
-        apt-get update
-        apt-get install -y curl
-
-    - name: Install Node.js Manually
-      run: |
-        echo "Installing Node.js..."
-        curl -sL https://deb.nodesource.com/setup_18.x | bash -
-        apt-get install -y nodejs
+        echo "Installing curl and Node.js..."
+        apk update
+        apk add curl
+        apk add nodejs npm
         node -v
         npm -v
 
