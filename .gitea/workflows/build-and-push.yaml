@@ -26,6 +26,12 @@ jobs:
           openrc
         rc-update add docker boot
         service docker start
+        # Wait for Docker to be fully started
+        sleep 10
+        while (! docker stats --no-stream ); do
+          echo "Waiting for Docker to start..."
+          sleep 1
+        done
         node -v
         npm -v
         yarn -v
