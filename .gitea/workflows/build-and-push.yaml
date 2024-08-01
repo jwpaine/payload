@@ -29,6 +29,18 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Ensure Docker is installed and running
+        run: |
+          if command -v apt-get &> /dev/null; then
+            apt-get update && apt-get install -y docker.io
+            service docker start || echo "Docker already started"
+          elif command -v apk &> /dev/null; then
+            apk update && apk add docker
+            rc-update add docker boot
+            service docker start || echo "Docker already started"
+          fi
+          docker info || echo "Docker not running properly"
+
       - name: Log in to Gitea Docker Registry
         id: login
         uses: docker/login-action@v3
