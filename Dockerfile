@@ -1,8 +1,16 @@
-# Use a Debian-based Node.js image for better compatibility with prebuilt binaries
-FROM node:18.8-bullseye-slim as base
+# Use a Debian-based Node.js image as the base image
+FROM node:18-bullseye-slim as base
 
 # Set the working directory
 WORKDIR /home/node/app
+
+# Install necessary build tools and libraries
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3 \
+    pkg-config \
+    libvips-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install necessary global tools
 RUN npm install -g cross-env nodemon
