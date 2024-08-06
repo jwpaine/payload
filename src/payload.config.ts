@@ -1,5 +1,7 @@
 import path from 'path'
 
+import fs from 'fs';
+
 import { payloadCloud } from '@payloadcms/plugin-cloud'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
@@ -12,10 +14,13 @@ import Theme from './collections/Theme'
 import APIUsers from './collections/APIUsers'
 
 
+
+
 export default buildConfig({
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
+    css: path.resolve(__dirname, 'theme/dream.css'),
   },
   editor: slateEditor({}),
   collections: [Users, Sites, Theme, APIUsers],

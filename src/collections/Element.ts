@@ -62,6 +62,14 @@ const Styling: GroupField = {
         name: 'text',
         type: 'text',
       },
+      {
+        name: 'styling',
+        type: 'json',
+        admin: {
+          description: 'Enter styling configurations in JSON format',
+        },
+      },
+      
       Styling,
     ],
   };
@@ -77,6 +85,13 @@ const Styling: GroupField = {
       {
         name: 'text',
         type: 'text',
+      },
+      {
+        name: 'styling',
+        type: 'json',
+        admin: {
+          description: 'Enter styling configurations in JSON format',
+        },
       },
       Styling,
       {
@@ -100,6 +115,13 @@ const Styling: GroupField = {
       {
         name: 'text',
         type: 'text',
+      },
+      {
+        name: 'styling',
+        type: 'json',
+        admin: {
+          description: 'Enter styling configurations in JSON format',
+        },
       },
       Styling,
       {
