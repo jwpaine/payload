@@ -1,49 +1,5 @@
 import { Block, GroupField } from 'payload/types';
 
-const Styling: GroupField = {
-    name: 'style',
-    type: 'group',
-    fields: [
-      {
-        type: 'collapsible',
-        label: 'Styling',
-        fields: [
-          {
-            name: 'background',
-            type: 'text',
-          },
-          {
-            name: 'minHeight',
-            type: 'text',
-          },
-          {
-            name: 'minWidth',
-            type: 'text',
-          },
-          {
-            name: 'maxWidth',
-            type: 'text',
-          },
-          {
-            name: 'margin',
-            type: 'text',
-          },
-          {
-            name: 'padding',
-            type: 'text',
-          },
-          {
-            name: 'color',
-            type: 'text',
-          },
-          {
-            name: 'fontSize',
-            type: 'text',
-          },
-        ],
-      },
-    ],
-  };
   
   const ElementTypes = [
     { label: 'H1', value: 'H1' },
@@ -69,8 +25,6 @@ const Styling: GroupField = {
           description: 'Enter styling configurations in JSON format',
         },
       },
-      
-      Styling,
     ],
   };
   
@@ -93,7 +47,6 @@ const Styling: GroupField = {
           description: 'Enter styling configurations in JSON format',
         },
       },
-      Styling,
       {
         name: 'elements',
         type: 'blocks',
@@ -123,7 +76,6 @@ const Styling: GroupField = {
           description: 'Enter styling configurations in JSON format',
         },
       },
-      Styling,
       {
         name: 'elements',
         type: 'blocks',

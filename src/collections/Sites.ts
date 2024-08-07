@@ -91,6 +91,7 @@ const Pages: GroupField = {
   ],
 };
 
+
 const Theme: GroupField = {
   name: 'theme',
   type: 'group',
@@ -146,6 +147,13 @@ const Site: CollectionConfig = {
     },
     Meta,
     Theme,
+    {
+      name: 'header',
+      type: 'blocks',
+      minRows: 1,
+      maxRows: 20,
+      blocks: [Element],
+    },
     Pages,
   ],
   admin: {
