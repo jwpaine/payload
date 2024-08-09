@@ -10,10 +10,7 @@ import { buildConfig } from 'payload/config'
 
 import Users from './collections/Users'
 import Sites from './collections/Sites'
-import Theme from './collections/Theme'
 import APIUsers from './collections/APIUsers'
-
-
 
 
 export default buildConfig({
@@ -23,7 +20,7 @@ export default buildConfig({
     css: path.resolve(__dirname, 'theme/dream.css'),
   },
   editor: slateEditor({}),
-  collections: [Users, Sites, Theme, APIUsers],
+  collections: [Users, Sites],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },

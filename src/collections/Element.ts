@@ -4,6 +4,7 @@ import { Block, GroupField } from 'payload/types';
   const ElementTypes = [
     { label: 'H1', value: 'H1' },
     { label: 'Container', value: 'Container' },
+    { label: 'Cloud', value: 'Cloud' },
   ]
 
   const TertiaryElement: Block = {
