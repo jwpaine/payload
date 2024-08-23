@@ -8,8 +8,8 @@ import { Block, GroupField } from 'payload/types';
     { label: 'P', value: 'P' },
   ]
 
-  const TertiaryElement: Block = {
-    slug: 'TertiaryElement',
+  const QuaternaryElement: Block = {
+    slug: 'QuaternaryElement',
     fields: [
       {
         name: 'type',
@@ -29,6 +29,37 @@ import { Block, GroupField } from 'payload/types';
       },
     ],
   };
+
+  const TertiaryElement: Block = {
+    slug: 'TertiaryElement',
+    fields: [
+      {
+        name: 'type',
+        type: 'select',
+        options: ElementTypes
+      },
+      {
+        name: 'text',
+        type: 'text',
+      },
+      {
+        name: 'styling',
+        type: 'json',
+        admin: {
+          description: 'Enter styling configurations in JSON format',
+        },
+      },
+      {
+        name: 'elements',
+        type: 'blocks',
+        minRows: 1,
+        maxRows: 20,
+        blocks: [QuaternaryElement],
+      },
+    ],
+  };
+
+
   
   const SubElement: Block = {
     slug: 'SubElement',
