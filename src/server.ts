@@ -9,6 +9,13 @@ app.get('/', (_, res) => {
   res.redirect('/admin')
 })
 
+// log the incoming request body:
+app.use(express.json())
+app.use((req, _, next) => {
+  console.log('Request Body:', req.body)
+  next()
+})
+
 const start = async () => {
   // Initialize Payload
   await payload.init({

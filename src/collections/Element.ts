@@ -21,6 +21,10 @@ import { Block, GroupField } from 'payload/types';
         type: 'text',
       },
       {
+        name: 'link',
+        type: 'text'
+      },
+      {
         name: 'styling',
         type: 'json',
         admin: {
@@ -41,6 +45,10 @@ import { Block, GroupField } from 'payload/types';
       {
         name: 'text',
         type: 'text',
+      },
+      {
+        name: 'link',
+        type: 'text'
       },
       {
         name: 'styling',
@@ -74,6 +82,10 @@ import { Block, GroupField } from 'payload/types';
         type: 'text',
       },
       {
+        name: 'link',
+        type: 'text'
+      },
+      {
         name: 'styling',
         type: 'json',
         admin: {
@@ -101,6 +113,10 @@ import { Block, GroupField } from 'payload/types';
       {
         name: 'text',
         type: 'text',
+      },
+      {
+        name: 'link',
+        type: 'text'
       },
       {
         name: 'styling',
